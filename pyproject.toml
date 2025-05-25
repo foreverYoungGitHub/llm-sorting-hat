@@ -6,6 +6,9 @@ authors = [{ name = "Yang Liu", email = "liuyoungwork@gmail.com" }]
 readme = "README.md"
 keywords = ['python']
 requires-python = ">=3.9,<4.0"
+dependencies = [
+    "vllm>=0.8.5,<1.0.0",
+]
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -31,7 +34,6 @@ dev = [
     "deptry>=0.23.0",
     "mypy>=0.991",
     "ruff>=0.11.5",
-    "vllm>=0.8.5,<1.0.0",
 ]
 
 [build-system]
