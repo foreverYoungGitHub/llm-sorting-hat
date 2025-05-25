@@ -1,74 +1,63 @@
-# llm-sorting-hat
+# LLM Sorting Hat / LLM 分院帽
 
-[![Release](https://img.shields.io/github/v/release/foreverYoungGitHub/llm-sorting-hat)](https://img.shields.io/github/v/release/foreverYoungGitHub/llm-sorting-hat)
-[![Build status](https://img.shields.io/github/actions/workflow/status/foreverYoungGitHub/llm-sorting-hat/main.yml?branch=main)](https://github.com/foreverYoungGitHub/llm-sorting-hat/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/foreverYoungGitHub/llm-sorting-hat/branch/main/graph/badge.svg)](https://codecov.io/gh/foreverYoungGitHub/llm-sorting-hat)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/foreverYoungGitHub/llm-sorting-hat)](https://img.shields.io/github/commit-activity/m/foreverYoungGitHub/llm-sorting-hat)
-[![License](https://img.shields.io/github/license/foreverYoungGitHub/llm-sorting-hat)](https://img.shields.io/github/license/foreverYoungGitHub/llm-sorting-hat)
+A magical sorting hat powered by LLM that helps sort students into their Hogwarts houses based on their characteristics.
+一个由 LLM 驱动的魔法分院帽，可以根据学生的特点将他们分到合适的霍格沃兹学院。
 
-This is a template repository for Python projects that use uv for their dependency management.
+## Features / 功能特点
 
-- **Github repository**: <https://github.com/foreverYoungGitHub/llm-sorting-hat/>
-- **Documentation** <https://foreverYoungGitHub.github.io/llm-sorting-hat/>
+- Bilingual interface (English/Chinese) / 双语界面（英文/中文）
+- Powered by LLM for intelligent house sorting / 由 LLM 驱动的智能分院
+- Structured output in JSON format / JSON 格式的结构化输出
+- Customizable model selection / 可自定义模型选择
 
-## Getting started with your project
+## Installation / 安装
 
-### 1. Create a New Repository
+### 1. Set Up Your Development Environment / 设置开发环境
 
 First, create a repository on GitHub with the same name as this project, and then run the following commands:
-
-```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:foreverYoungGitHub/llm-sorting-hat.git
-git push -u origin main
-```
-
-### 2. Set Up Your Development Environment
-
-Then, install the environment and the pre-commit hooks with
 
 ```bash
 make install
 ```
 
-This will also generate your `uv.lock` file
-
-### 3. Run the pre-commit hooks
-
-Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
+### 2. Enter the Virtual Environment / 进入虚拟环境
 
 ```bash
-uv run pre-commit run -a
+source .venv/bin/activate
 ```
 
-### 4. Commit the changes
+### 3. Run the llm-sorting-hat / 运行分院帽
 
-Lastly, commit the changes made by the two steps above to your repository.
-
+Basic usage / 基本用法：
 ```bash
-git add .
-git commit -m 'Fix formatting issues'
-git push origin main
+make run
 ```
 
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+With custom model / 使用自定义模型：
+```bash
+python llm_sorting_hat/main.py --model "your-model-name"
+```
 
-To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
+## Usage / 使用方法
 
-## Releasing a new version
+1. Run the program / 运行程序
+2. Enter your introduction in either English or Chinese / 用英文或中文输入你的自我介绍
+3. The sorting hat will analyze your characteristics and assign you to a house / 分院帽将分析你的特点并将你分到合适的学院
 
-- Create an API Token on [PyPI](https://pypi.org/).
-- Add the API Token to your projects secrets with the name `PYPI_TOKEN` by visiting [this page](https://github.com/foreverYoungGitHub/llm-sorting-hat/settings/secrets/actions/new).
-- Create a [new release](https://github.com/foreverYoungGitHub/llm-sorting-hat/releases/new) on Github.
-- Create a new tag in the form `*.*.*`.
+## Output Format / 输出格式
 
-For more details, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/cicd/#how-to-trigger-a-release).
+The program will output a JSON with the following structure / 程序将输出如下结构的 JSON：
 
----
+```json
+{
+    "name": "string",
+    "age": "string",
+    "house": "string"
+}
+```
 
-Repository initiated with [fpgmaas/cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv).
+Where house can be one of: / 其中 house 可以是以下之一：
+- Gryffindor / 格兰芬多
+- Slytherin / 斯莱特林
+- Ravenclaw / 拉文克劳
+- Hufflepuff / 赫奇帕奇

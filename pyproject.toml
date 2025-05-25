@@ -1,7 +1,7 @@
 [project]
 name = "llm-sorting-hat"
 version = "0.0.1"
-description = "This is a template repository for Python projects that use uv for their dependency management."
+description = "LLM分院帽"
 authors = [{ name = "Yang Liu", email = "liuyoungwork@gmail.com" }]
 readme = "README.md"
 keywords = ['python']
