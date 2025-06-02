@@ -1,5 +1,7 @@
 # LLM Sorting Hat / LLM 分院帽
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1S4Innh8BRf2nT3EmO-wAlwzBXwt3GBW_?usp=sharing)
+
 A magical sorting hat powered by LLM that helps sort students into their Hogwarts houses based on their characteristics.
 一个由 LLM 驱动的魔法分院帽，可以根据学生的特点将他们分到合适的霍格沃兹学院。
 
