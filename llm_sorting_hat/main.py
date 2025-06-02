@@ -10,39 +10,35 @@ from vllm import LLM, SamplingParams
 from vllm.sampling_params import GuidedDecodingParams
 
 # Guided decoding by Grammar
-grammar = """
-object ::= "{" name_entry "," age_entry "," house_entry "}"
+grammar = r"""root ::= "{" name_entry "," age_entry "," house_entry "}"
 
-name_entry ::= "\"name\"" ":" string
-age_entry ::= "\"age\"" ":" number
-house_entry ::= "\"house\"" ":" house
+name_entry ::= (([\"] "name" [\"])) ":" basic_string
+age_entry ::= (([\"] "age" [\"])) ":" age_value
+house_entry ::= (([\"] "house" [\"])) ":" house_string
 
-string ::= "\"" name_char+ "\""
-name_char ::= letter | space
-
-letter ::= "\u0041" ... "\u005a" | "\u0061" ... "\u007a" | "\u4e00" ... "\u9fff" | "\u3400" ... "\u4dbf"
-space ::= " "
-
-number ::= digit+ | space
-digit ::= "0"..."9"
-
-house ::= "\"" house_value "\""
+age_value ::= ("0" | [1-9] [0-9]*)
+house_string ::= (([\"] house_value [\"]))
 house_value ::= "Gryffindor" | "Slytherin" | "Ravenclaw" | "Hufflepuff"
+
+basic_string ::= (([\"] basic_string_1 [\"]))
+basic_string_1 ::= "" | [^"\\\x00-\x1F] basic_string_1 | "\\" escape basic_string_1
+escape ::= ["\\/bfnrt] | "u" [A-Fa-f0-9] [A-Fa-f0-9] [A-Fa-f0-9] [A-Fa-f0-9]
 """
 
 guided_decoding_params_grammar = GuidedDecodingParams(grammar=grammar)
-sampling_params_grammar = SamplingParams(guided_decoding=guided_decoding_params_grammar)
-prompt_grammar = """你是一顶聪明又古老的分院帽。请根据以下巫师新生的自我介绍，将他们分到合适的霍格沃兹学院（Gryffindor、Slytherin、Ravenclaw、Hufflepuff）中。
+sampling_params_grammar = SamplingParams(
+    guided_decoding=guided_decoding_params_grammar, max_tokens=100, temperature=0.1
+)
+prompt_grammar = """You're a wise and ancient Sorting Hat. Based on the following self-introduction from a young wizard, assign them to the most appropriate Hogwarts house.
 
-请只输出如下格式JSON，不要解释。
+Please output only a JSON object in the following format — no explanation:
 {{
     "name": "string",
-    "age": "string",
+    "age": "int",
     "house": "string"
 }}
-当用户相关信息为空时，请输出空字符串。
 
-输入信息如下：
+Here is the input information:
 {user_input}
 """
 
@@ -72,6 +68,6 @@ def main(model: str) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str, default="Qwen/Qwen3-0.6B")
+    parser.add_argument("--model", type=str, default="meta-llama/Llama-3.2-1B-Instruct")
     args = parser.parse_args()
     main(args.model)
